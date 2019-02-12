@@ -1,3 +1,3 @@
 # Contest Practice
 
-Solutions and practice exercies to various programming contests
+Solutions to various programming contests questions
