@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="S3" type="Application" factoryName="Application" singleton="true">
-    <option name="MAIN_CLASS_NAME" value="Main" />
-    <module name="S3" />
-    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-    <method />
-  </configuration>
-</component>
