@@ -3,10 +3,6 @@ import sys, io
 import unittest
 import abc
 
-sys.path.insert(0, "./CCC/2017/")
-
-import s3_nailed_it
-
 
 class AbstractTest(unittest.TestCase, abc.ABC):
 
@@ -34,20 +30,17 @@ class AbstractTest(unittest.TestCase, abc.ABC):
 
         self.runMethod()
 
-        self.assertEqual("\n".join(self.get_expected_output()) + "\n", sys.stdout.getvalue())
+        output = self.get_expected_output()
+        real_output = sys.stdout.getvalue()
+        if output != -1:
+            self.assertEqual("\n".join(output) + "\n", real_output)
 
         sys.stdout.close()
 
         sys.stdout = self.stdout_
 
-
-class NailedItAbstractTest(AbstractTest, abc.ABC):
-
-    def overrideInput(self, input_function):
-        s3_nailed_it.input = input_function
-
-    def runMethod(self):
-        s3_nailed_it.main()
+        if output == -1:
+            print(real_output)
 
 
 class AbstractTestTester(AbstractTest):
@@ -68,27 +61,6 @@ class AbstractTestTester(AbstractTest):
         print("Output2")
 
 
-class TestCaseOne(NailedItAbstractTest):
-
-    def get_input_data(self):
-        return ["5", "1 10 100 1000 2000"]
-
-    def get_expected_output(self):
-        return ["1 10"]
-
-
-class TestCaseTwo(NailedItAbstractTest):
-
-    def get_input_data(self):
-        return [
-            "4",
-            "1 2 3 4"
-        ]
-
-    def get_expected_output(self):
-        return ["2 1"]
-
-
 class InputReader:
     def __init__(self, input_data):
         self.input = input_data
@@ -98,11 +70,3 @@ class InputReader:
         row_ = self.input[self.inputRow]
         self.inputRow += 1
         return row_
-
-
-if __name__ == '__main__':
-    suite = unittest.TestSuite()
-    suite.addTests([AbstractTestTester(), TestCaseOne(), TestCaseTwo()])
-
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
