@@ -1,10 +1,12 @@
 # DOESN'T PASS TESTS
+import math
+
 
 class Solver:
     def __init__(self):
         (self.numberOfAttractions, self.attractionsPerDay) = tuple(map(int, input().split(" ")))
         self.values = list(map(int, input().split(" ")))
-        self.numberOfDays = int(self.numberOfAttractions / self.attractionsPerDay) + 1  # +1 because truncated
+        self.numberOfDays = math.ceil(self.numberOfAttractions / self.attractionsPerDay)  # +1 because truncated
 
     def solve(self):
         wiggle_room = self.numberOfDays * self.attractionsPerDay - self.numberOfAttractions
